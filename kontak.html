@@ -9,15 +9,15 @@
     </head>
     <body>
         <a class="skip-link" href="#konten">Lewati ke konten utama</a>
-        <header class="navbar-header">
-            <nav class="navbar-container navbar" aria-label="Navigasi utama">
-                <a class="brand-logo" href="index.html">Kopi Zaramaraz</a>
-                <ul class="nav-links">
+        <header class="site-header">
+            <nav class="nav" aria-label="Navigasi utama">
+                <a class="brand" href="index.html">Kopi Zaramaraz</a>
+                <ul>
                     <li><a href="index.html">Beranda</a></li>
-                    <li><a href="tentang.html">Tentang Kami</a></li>
                     <li><a href="produk.html">Produk</a></li>
                     <li><a href="galeri.html">Galeri</a></li>
-                    <li><a class="active" aria-current="page" href="kontak.html">Kontak</a></li>
+                    <li><a aria-current="page" href="kontak.html">Kontak</a></li>
+                    <li><a href="tentang.html">Tentang Kami</a></li>
                 </ul>
             </nav>
         </header>
@@ -29,6 +29,11 @@
                 <div class="field">
                     <label for="nama">Nama lengkap</label>
                     <input id="nama" name="nama" type="text" required minlength="3" />
+                </div>
+
+                <div class="field">
+                    <label for="telepon">Nomor Telepon</label>
+                    <input id="telepon" name="telepon" type="tel" required minlength="10" />
                 </div>
 
                 <div class="field">
@@ -70,7 +75,7 @@
         </main>
         
         <footer class="site-footer">
-            <p>&copy; 2026 Kopi Zaramaraz. Seluruh hak cipta dilindungi.</p>
+            <p>&copy; 2026 Kopi Zaramaraz. Seluruh hak cipta dilindungi.<br>Pekalongan Selatan</p>
         </footer>
     </body>
 </html>
