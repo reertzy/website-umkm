@@ -7,6 +7,7 @@ form.addEventListener("submit", (event) => {
   const data = new FormData(form);
   preview.textContent = [
     "Nama: " + data.get("nama"),
+    "Nomor Telepon: " + data.get("telepon"),
     "Email: " + data.get("email"),
     "Paket: " + data.get("paket"),
     "Topik: " + data.get("topik"),
