@@ -12,7 +12,14 @@
         <header class="site-header">
             <nav class="nav" aria-label="Navigasi utama">
                 <a class="brand" href="index.html">Kopi Zaramaraz</a>
-                <ul>
+
+                <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Buka menu navigasi">
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                </button>
+
+                <ul id="nav-menu">
                     <li><a aria-current="page" href="index.html">Beranda</a></li>
                     <li><a href="produk.html">Produk</a></li>
                     <li><a href="galeri.html">Galeri</a></li>
@@ -92,5 +99,6 @@
             <p>&copy; 2026 Kopi Zaramaraz. Seluruh hak cipta dilindungi.<br>Pekalongan Selatan</p>
         </footer>
         <script src="js/script.js"></script>
+        <script src="js/ham.js"></script>
     </body>
 </html>

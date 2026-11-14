@@ -1,7 +1,9 @@
+// 1. Keterangan P10 Aktif
 "use strict";
 
-console.log("P09 JavaScript aktif");
+console.log("P10 JavaScript aktif");
 
+// 2. Data produk UMKM
 const produkUmkm = [
     { nama: "Kopi Tubruk Signature", kategori: "Kopi", harga: 10000, stok: 5, unggulan: true},
     { nama: "Caffe Latte", kategori: "Kopi", harga: 12000, stok: 10, unggulan: true},
@@ -11,16 +13,20 @@ const produkUmkm = [
 
 console.table(produkUmkm);
 
-const formatRupiah = new Intl.NumberFormat("id-ID", {
+// 3. Function Format Rupiah
+function formatRupiah(nilai) {
+  return new Intl.NumberFormat("id-ID", {
     style: "currency",
     currency: "IDR",
     maximumFractionDigits: 0,
-});
+  }).format(nilai);
+}
 
-console.log(formatRupiah.format(produkUmkm[0].harga));
+console.log(formatRupiah(10000));
 
+// 4. Function Status Stok
 function statusStok(stok) {
-    if (stok === 0) {
+    if (stok <= 0) {
         return { label: "Habis", className: "empty"};
     }
 
@@ -31,6 +37,11 @@ function statusStok(stok) {
     return { label: "Tersedia", className: ""};
 }
 
+console.log(statusStok(0));
+console.log(statusStok(3));
+console.log(statusStok(12));
+
+// 5. Function Label Kategori
 function labelKategori(kategori) {
   switch (kategori) {
     case "Kopi":
@@ -42,39 +53,50 @@ function labelKategori(kategori) {
   }
 }
 
+// 6. Function Membuat Kartu Produk
+function buatKartuProduk(produk) {
+  const status = statusStok(produk.stok);
+
+  return `
+    <article class="js-product-card">
+      <h3>${produk.nama}</h3>
+      <p class="category-note">${produk.kategori}</p>
+      <p class="price">${formatRupiah(produk.harga)}</p>
+      <span class="stock-badge ${status.className}">${status.label}</span>
+    </article>
+  `;
+}
+
+produkUmkm.forEach((produk) => {
+  console.log("Debug produk:", produk.nama, "stok:", produk.stok);
+});
+
+// 7. Function Render Produk
 function renderProduk() {
   const grid = document.querySelector("#produk-dinamis");
   const ringkasan = document.querySelector("#produk-ringkasan");
+  const unggulan = document.querySelector("#produk-unggulan");
 
-  if (!grid || !ringkasan) {
+  if (!grid || !ringkasan || !unggulan) {
+    console.warn("Target render produk belum lengkap.")
     return;
   }
 
-  let jumlahTersedia = 0;
-  let markup = "";
+  const produkTersedia = produkUmkm.filter((produk) => produk.stok > 0);
+  const produkUnggulan = produkUmkm.find((produk) => produk.unggulan === true);
+  const markupProduk = produkTersedia.map(buatKartuProduk).join("");
 
-  for (const produk of produkUmkm) {
-    const status = statusStok(produk.stok);
-    const kategori = labelKategori(produk.kategori);
-    const labelAksi = produk.stok > 0 ? "Siap dipesan" : "Hubungi admin";
+  produkUmkm.forEach((produk) => {
+    console.log("Debug produk:", produk.nama, "stok:", produk.stok);
+  });
 
-    if (produk.stok > 0) {
-      jumlahTersedia = jumlahTersedia + 1;
-    }
+  grid.innerHTML = markupProduk;
+  ringkasan.textContent = `${produkTersedia.length} produk tersedia dari ${produkUmkm.length} data.`;
+  unggulan.textContent = produkUnggulan
+    ? `Produk unggulan: ${produkUnggulan.nama}`
+    : "Belum ada produk unggulan.";
 
-    markup = markup + `
-      <article class="js-product-card">
-        <h3>${produk.nama}</h3>
-        <p>${kategori}</p>
-        <p class="price">${formatRupiah.format(produk.harga)}</p>
-        <span class="stock-badge ${status.className}">${status.label}</span>
-        <p>${labelAksi}</p>
-      </article>
-    `;
-  }
-
-  grid.innerHTML = markup;
-  ringkasan.textContent = `${jumlahTersedia} produk tersedia dari ${produkUmkm.length} data.`;
+  console.table(produkUmkm);
 }
 
 document.addEventListener("DOMContentLoaded", renderProduk);
